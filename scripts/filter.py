@@ -3,6 +3,8 @@ import os
 
 import pandas as pd
 
+SIGNAL_STRENGTH_CUTOFF = 30
+
 def get_name(satellite_type):
     name_map = {
         1: "navstar",
@@ -41,7 +43,7 @@ def filter_log(log_file):
     df = df.dropna(subset=["UnixTimeMillis"])
     
     # Only keep satellites for which the signal is strong enough
-    df = df[df['BasebandCn0DbHz'] > 25]
+    df = df[df['BasebandCn0DbHz'] > SIGNAL_STRENGTH_CUTOFF]
     
     df["ConstellationName"] = df["ConstellationType"].apply(get_name)
     result_df = df.drop_duplicates(subset=["Svid", "ConstellationName"], keep="first")
