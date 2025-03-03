@@ -1,3 +1,5 @@
 pandas
 ipykernel
 requests
+ratelimit
+dotenv
