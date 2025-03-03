@@ -96,6 +96,11 @@ def main(active_ids_dir, tles_dir, filtered_logs_dir, matches_file):
         "ElevationDegrees": "ActualElevation",
     })
     
+    # Some of the matches are way off. Why?
+    df['ElevationDelta'] = abs(df['ActualElevation'] - df['PredictedElevation'])
+    df['AzimuthDelta'] = abs(df['ActualAzimuth'] - df['PredictedAzimuth'])
+    df = df[(df['ElevationDelta'] <= 1) & (df['AzimuthDelta'] <= 1)]
+    
     df = df.sort_values(by='Svid')
     
     df[[
