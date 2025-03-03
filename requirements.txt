@@ -6,3 +6,4 @@ dotenv
 gdown
 skyfield
 scipy
+kaggle

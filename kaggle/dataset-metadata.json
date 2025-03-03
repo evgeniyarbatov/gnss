@@ -1,0 +1,7 @@
+{
+    "title": "gnss-satellites",
+    "id": "evgenyarbatov/gnss-satellites",
+    "subtitle": "",
+    "description": "Observations of GNSS Satellites",
+    "keywords": ["gnss", "gps", "qzss", "beidou", "glonass"]
+  }
