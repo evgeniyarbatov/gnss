@@ -40,6 +40,9 @@ def filter_log(log_file):
     
     df = df.dropna(subset=["UnixTimeMillis"])
     
+    # Only keep satellites for which the signal is strong enough
+    df = df[df['BasebandCn0DbHz'] > 25]
+    
     df["ConstellationName"] = df["ConstellationType"].apply(get_name)
     result_df = df.drop_duplicates(subset=["Svid", "ConstellationName"], keep="first")
     

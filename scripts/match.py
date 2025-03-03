@@ -67,8 +67,8 @@ def get_norad_cat_id(row, active_ids_dir, tles_dir):
     
     return (
         closest_satellite['norad_cat_id'].iloc[0],
-        closest_satellite['altitude'].iloc[0],
         closest_satellite['azimuth'].iloc[0],
+        closest_satellite['altitude'].iloc[0],
     )
 
 def main(active_ids_dir, tles_dir, filtered_logs_dir, matches_file):
