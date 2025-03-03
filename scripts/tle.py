@@ -73,7 +73,7 @@ def main(active_ids_dir, tles_dir):
     norad_cat_ids = get_norad_cat_ids(active_ids_dir)
     download_gnss_omm(norad_cat_ids, tles_dir)
     
-    omm_files = [f for f in os.listdir(tles_dir)]
+    omm_files = [f for f in os.listdir(tles_dir) if f.endswith(".json")]
     assert len(omm_files) == len(norad_cat_ids), f"Expected {len(norad_cat_ids)} omm files, but found {len(omm_files)}"
     
 if __name__ == "__main__":
