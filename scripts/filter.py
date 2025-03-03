@@ -5,9 +5,9 @@ import pandas as pd
 
 def get_name(satellite_type):
     name_map = {
-        1: "gps",
+        1: "navstar",
         3: "glonass",
-        4: "qzss",
+        4: "qzs",
         5: "beidou",
         6: "galileo",
     }
