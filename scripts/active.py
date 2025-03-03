@@ -22,7 +22,6 @@ def main(ids_dir, active_ids_dir):
         for satellite in data:
             object_id = satellite.get('OBJECT_ID')
             launch_year = int(object_id.split('-')[0])
-            print(ids_file, launch_year, is_active(launch_year))
             if is_active(launch_year):
                 active_ids.append(satellite.get('NORAD_CAT_ID'))
                 
