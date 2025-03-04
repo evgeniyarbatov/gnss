@@ -18,12 +18,11 @@ from utils import (
 TIMEZONE = 'Asia/Ho_Chi_Minh'
 LAT, LON = 20.99484734661426, 105.86761269335307
 
-# def get_match():
-#     df['dtw_distance'] = df.apply(lambda row: fastdtw(row['original_segment'], row['matched_segment'], dist=euclidean)[0], axis=1)
+OBSERVATION_INTERVAL_SECONDS = 80
 
 def filter_by_time(group):
     group = group.sort_values("datetime") 
-    mask = group["datetime"].diff().dt.total_seconds().ge(30)
+    mask = group["datetime"].diff().dt.total_seconds().ge(OBSERVATION_INTERVAL_SECONDS)
     return group[mask | mask.isna()]
 
 def sample_logs(df):
