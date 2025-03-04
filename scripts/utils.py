@@ -35,9 +35,11 @@ def read_gnss_log(log_file):
         comment="#",
         names=column_names,
         on_bad_lines="skip",
+        low_memory=False,
     )
 
     df = df.dropna(subset=["UnixTimeMillis"])
+    df[['UnixTimeMillis']] = df[['UnixTimeMillis']].apply(pd.to_numeric, errors='coerce')
     
     # Only keep satellites for which the signal is strong enough
     df = df[df['BasebandCn0DbHz'] > SIGNAL_STRENGTH_CUTOFF]

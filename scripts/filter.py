@@ -9,7 +9,7 @@ from utils import (
 
 def filter_log(log_file):
     df = read_gnss_log(log_file)
-        
+            
     result_df = df.groupby(["Svid", "ConstellationType", "ConstellationName"])[[
         'UnixTimeMillis', 
         'AzimuthDegrees', 
