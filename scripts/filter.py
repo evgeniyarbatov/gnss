@@ -46,7 +46,12 @@ def filter_log(log_file):
     df = df[df['BasebandCn0DbHz'] > SIGNAL_STRENGTH_CUTOFF]
     
     df["ConstellationName"] = df["ConstellationType"].apply(get_name)
-    result_df = df.drop_duplicates(subset=["Svid", "ConstellationName"], keep="first")
+    
+    result_df = df.groupby(["Svid", "ConstellationName"])[[
+        'UnixTimeMillis', 
+        'AzimuthDegrees', 
+        'ElevationDegrees'
+    ]].median().reset_index()
     
     return result_df[[
         "Svid", 
