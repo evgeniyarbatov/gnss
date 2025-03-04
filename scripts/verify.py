@@ -107,6 +107,7 @@ def main(logs_dir, tles_dir, matches_file):
         matches_df.loc[mask, ["TLEDistance"]] = distance
 
     matches_df = matches_df.dropna(subset=["ObservationCount"])
+    
     matches_df.to_csv(f"{matches_file}", index=False) 
 
 if __name__ == "__main__":

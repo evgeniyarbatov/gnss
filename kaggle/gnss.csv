@@ -1,7 +1,6 @@
 Svid,NoradCatID,ConstellationType,ConstellationName,ObservationCount,TLEDistance
 1,62339,1,navstar,14.0,0.0
 2,41549,6,galileo,18.0,0.0
-3,40294,1,navstar,3.0,0.0
 3,41860,6,galileo,4.0,0.0
 3,37867,3,glonass,17.0,0.0
 4,43873,1,navstar,1.0,0.0
