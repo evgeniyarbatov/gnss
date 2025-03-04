@@ -7,3 +7,4 @@ gdown
 skyfield
 scipy
 kaggle
+fastdtw

@@ -5,7 +5,7 @@ import json
 import pandas as pd
 
 from zoneinfo import ZoneInfo
-from datetime import datetime, timedelta
+from datetime import datetime
 from skyfield.api import EarthSatellite, load, wgs84
 from scipy.spatial import cKDTree
 
