@@ -47,7 +47,7 @@ def filter_log(log_file):
     
     df["ConstellationName"] = df["ConstellationType"].apply(get_name)
     
-    result_df = df.groupby(["Svid", "ConstellationName"])[[
+    result_df = df.groupby(["Svid", "ConstellationType", "ConstellationName"])[[
         'UnixTimeMillis', 
         'AzimuthDegrees', 
         'ElevationDegrees'
@@ -55,6 +55,7 @@ def filter_log(log_file):
     
     return result_df[[
         "Svid", 
+        "ConstellationType",
         "ConstellationName", 
         "UnixTimeMillis", 
         "AzimuthDegrees", 

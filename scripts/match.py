@@ -107,6 +107,7 @@ def main(active_ids_dir, tles_dir, filtered_logs_dir, matches_file):
     df[[
         'Svid',
         'NoradCatID',
+        'ConstellationType',
         'ConstellationName',
     ]].to_csv(f"{matches_file}", index=False) 
 
