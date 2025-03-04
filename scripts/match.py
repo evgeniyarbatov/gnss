@@ -107,10 +107,6 @@ def main(active_ids_dir, tles_dir, filtered_logs_dir, matches_file):
         'Svid',
         'NoradCatID',
         'ConstellationName',
-        'ActualAzimuth',
-        'PredictedAzimuth',
-        'ActualElevation',
-        'PredictedElevation',
     ]].to_csv(f"{matches_file}", index=False) 
 
 if __name__ == "__main__":
