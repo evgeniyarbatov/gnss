@@ -70,7 +70,7 @@ def predict_location(row, tles_dir):
         alt.degrees,
     )
 
-def main(logs_dir, tles_dir, matches_file):
+def main(logs_dir, tles_dir, matches_file, verified_file):
     matches_df = pd.read_csv(matches_file)
 
     log_dfs = []
@@ -108,7 +108,7 @@ def main(logs_dir, tles_dir, matches_file):
 
     matches_df = matches_df.dropna(subset=["ObservationCount"])
     
-    matches_df.to_csv(f"{matches_file}", index=False) 
+    matches_df.to_csv(f"{verified_file}", index=False) 
 
 if __name__ == "__main__":
 	main(*sys.argv[1:])

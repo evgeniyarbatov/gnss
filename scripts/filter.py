@@ -14,7 +14,7 @@ def filter_log(log_file):
         'UnixTimeMillis', 
         'AzimuthDegrees', 
         'ElevationDegrees'
-    ]].median().reset_index()
+    ]].first().reset_index()
     
     return result_df[[
         "Svid", 

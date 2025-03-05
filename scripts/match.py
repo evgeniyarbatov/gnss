@@ -12,6 +12,8 @@ from scipy.spatial import cKDTree
 TIMEZONE = 'Asia/Ho_Chi_Minh'
 LAT, LON = 20.99484734661426, 105.86761269335307
 
+OBSERVATION_DEGREES_DELTA = 1
+
 def get_satellite_locations(row, omm_files, tles_dir):
     observer = wgs84.latlon(LAT, LON)
     
@@ -100,7 +102,7 @@ def main(active_ids_dir, tles_dir, filtered_logs_dir, matches_file):
     df['AzimuthDelta'] = abs(df['ActualAzimuth'] - df['PredictedAzimuth'])
     
     # Allow for small deviations
-    df = df[(df['ElevationDelta'] <= 5) & (df['AzimuthDelta'] <= 5)]
+    df = df[(df['ElevationDelta'] <= OBSERVATION_DEGREES_DELTA) & (df['AzimuthDelta'] <= OBSERVATION_DEGREES_DELTA)]
     
     df = df.sort_values(by='Svid')
     
@@ -108,7 +110,6 @@ def main(active_ids_dir, tles_dir, filtered_logs_dir, matches_file):
         'Svid',
         'NoradCatID',
         'ConstellationType',
-        'ConstellationName',
     ]].to_csv(f"{matches_file}", index=False) 
 
 if __name__ == "__main__":
