@@ -1,6 +1,6 @@
 import pandas as pd
 
-SIGNAL_STRENGTH_CUTOFF = 30
+SIGNAL_STRENGTH_CUTOFF = 25
 
 def get_name(satellite_type):
     name_map = {
