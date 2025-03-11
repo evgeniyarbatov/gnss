@@ -19,7 +19,7 @@ VERIFIED_FILE = logs/verified.csv
 
 KAGGLE_FILE = kaggle/gnss.csv
 
-all: venv install init ids active tle log filter match verify
+all: venv install init ids active tle log filter match verify upload stats
 
 init:
 	@gh gist view $(SPACE_TRACK_GIST_ID) --raw > space_track.env
