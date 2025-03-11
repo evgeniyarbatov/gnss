@@ -1,6 +1,10 @@
 # GNSS
 
-Observations of GNSS satellites.
+Observations of GNSS satellites to map Satellite ID from Android APIs to NORAD CAT IDs.
+
+## Kaggle Dataset
+
+https://www.kaggle.com/datasets/evgenyarbatov/gnss-satellites/
 
 ## What you need
 
