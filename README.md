@@ -1,10 +1,12 @@
-# GNSS
+# GNSS Observations
 
-Observations of GNSS satellites to map Satellite ID from Android APIs to NORAD CAT IDs.
+Map Satellite ID from Android APIs to NORAD CAT IDs.
 
-## Kaggle Dataset
+## Dataset
 
 https://www.kaggle.com/datasets/evgenyarbatov/gnss-satellites/
+
+## Running
 
 ## What you need
 
@@ -12,7 +14,6 @@ https://www.kaggle.com/datasets/evgenyarbatov/gnss-satellites/
 - GNSSLogger app with 'Status' logging enabled
 - Upload GNSSLogger logs to Google Drive
 
-## Running
 
 ```sh
 # Create venv
