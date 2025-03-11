@@ -22,13 +22,13 @@ make venv
 # Install deps
 make install  
 
-# Replace with your own https://www.space-track.org credentials
+# Replace with your own credentials
 make init  
 
 # Get GNSS IDs from https://celestrak.org
 make ids  
 
-# Filter GNSS IDs to active ones ('active' = launched in the last 15 years)
+# Filter GNSS IDs to active ones ('active' ie launched in the last 15 years)
 make active  
 
 # Download TLEs from https://www.space-track.org
