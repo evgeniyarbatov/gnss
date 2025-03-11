@@ -3,9 +3,12 @@ import os
 
 import pandas as pd
 
+from dotenv import load_dotenv
 from kaggle.api.kaggle_api_extended import KaggleApi
 
 TLE_DISTANCE_CUTOFF = 5
+
+load_dotenv("kaggle.env")
 
 def get_pretty_name(name):
     name_map = {
