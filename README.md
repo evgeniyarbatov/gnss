@@ -4,7 +4,7 @@ Observations of GNSS satellites.
 
 ## Running
 
-```
+```sh
 make venv # Create venv
 make install # Install deps
 make init # Relace with your own https://www.space-track.org credentials
