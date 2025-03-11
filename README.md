@@ -8,7 +8,7 @@ https://www.kaggle.com/datasets/evgenyarbatov/gnss-satellites/
 
 ## Running
 
-## What you need
+Prereqs: 
 
 - Account on https://www.space-track.org to get TLEs
 - GNSSLogger app with 'Status' logging enabled
