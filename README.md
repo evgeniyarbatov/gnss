@@ -43,9 +43,6 @@ make filter
 # Match each satellite from the logs to the closest satellite in TLE files
 make match  
 
-# Check if the match is valid
-make verify  
-
 # Upload to Kaggle
 make upload  
 ```
