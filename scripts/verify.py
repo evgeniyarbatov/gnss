@@ -70,6 +70,32 @@ def predict_location(row, tles_dir):
         alt.degrees,
     )
 
+def update_verified(df, existing_file):
+    try:
+        existing_df = pd.read_csv(existing_file, dtype={
+            'ObservationCount': int,
+            'TLEDistance': float,
+        })
+    except FileNotFoundError:
+        existing_df = pd.DataFrame()
+
+    new_data = df[[
+        'Svid', 
+        'NoradCatID', 
+        'ConstellationType',
+        'ObservationCount',
+        'TLEDistance',
+    ]]
+
+    combined_df = pd.concat([existing_df, new_data])
+    
+    combined_df = combined_df.groupby(['Svid', 'NoradCatID', 'ConstellationType']).agg({
+        'ObservationCount': 'sum',
+        'TLEDistance': 'min'
+    }).reset_index()
+    
+    combined_df.to_csv(existing_file, index=False)  
+
 def main(logs_dir, tles_dir, matches_file, verified_file):
     matches_df = pd.read_csv(matches_file)
 
@@ -108,7 +134,7 @@ def main(logs_dir, tles_dir, matches_file, verified_file):
 
     matches_df = matches_df.dropna(subset=["ObservationCount"])
     
-    matches_df.to_csv(f"{verified_file}", index=False) 
+    update_verified(matches_df, verified_file)
 
 if __name__ == "__main__":
 	main(*sys.argv[1:])
