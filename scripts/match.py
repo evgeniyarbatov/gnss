@@ -73,6 +73,21 @@ def get_norad_cat_id(row, active_ids_dir, tles_dir):
         closest_satellite['altitude'].iloc[0],
     )
 
+def update_matches(df, existing_file):
+    try:
+        existing_df = pd.read_csv(existing_file)
+    except FileNotFoundError:
+        existing_df = pd.DataFrame()
+
+    new_data = df[['Svid', 'NoradCatID', 'ConstellationType']]
+
+    new_data = new_data.astype(str)
+    existing_df = existing_df.astype(str)
+
+    combined_df = pd.concat([existing_df, new_data]).drop_duplicates()
+    
+    combined_df.to_csv(existing_file, index=False)    
+    
 def main(active_ids_dir, tles_dir, filtered_logs_dir, matches_file):
     log_files = [f for f in os.listdir(filtered_logs_dir) if f.endswith(".txt")]
 
@@ -106,11 +121,7 @@ def main(active_ids_dir, tles_dir, filtered_logs_dir, matches_file):
     
     df = df.sort_values(by='Svid')
     
-    df[[
-        'Svid',
-        'NoradCatID',
-        'ConstellationType',
-    ]].to_csv(f"{matches_file}", index=False) 
+    update_matches(df, matches_file)
 
 if __name__ == "__main__":
     main(*sys.argv[1:])
