@@ -35,10 +35,7 @@ make active
 make tle  
 
 # Fetch GNSSLogger app logs from Google Drive. Replace with your own Google Drive
-make log  
-
-# Extract only the information we need from the raw logs
-make filter  
+make log 
 
 # Match each satellite from the logs to the closest satellite in TLE files
 make match  

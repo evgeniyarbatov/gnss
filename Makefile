@@ -52,7 +52,7 @@ filter:
 	@source $(VENV_PATH)/bin/activate && \
 	python3 scripts/filter.py $(LOGS_DIR) $(FILTERED_LOGS_DIR);
 
-match:
+match: filter
 	@source $(VENV_PATH)/bin/activate && \
 	python3 scripts/match.py \
 	$(ACTIVE_IDS_DIR) \
