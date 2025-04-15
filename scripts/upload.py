@@ -22,9 +22,7 @@ def get_pretty_name(name):
 
 def main(matches_file, kaggle_file):
 	df = pd.read_csv(matches_file)
- 
-	df = df[df['TLEDistance'] <= TLE_DISTANCE_CUTOFF]
- 
+  
 	result_rows = []
 	for _, row in df.iterrows():
 		try:	   

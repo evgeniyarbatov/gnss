@@ -60,17 +60,9 @@ match:
 	$(FILTERED_LOGS_DIR) \
 	$(MATCHES_FILE);
 
-verify:
-	@source $(VENV_PATH)/bin/activate && \
-	python3 scripts/verify.py \
-	$(LOGS_DIR) \
-	$(TLES_DIR) \
-	$(MATCHES_FILE) \
-	$(VERIFIED_FILE);
-
 upload:
 	source $(VENV_PATH)/bin/activate && \
-	python3 scripts/upload.py $(VERIFIED_FILE) $(KAGGLE_FILE);
+	python3 scripts/upload.py $(MATCHES_FILE) $(KAGGLE_FILE);
 
 stats:
 	@source $(VENV_PATH)/bin/activate && \
