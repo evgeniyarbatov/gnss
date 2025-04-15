@@ -11,6 +11,7 @@ Svid,ConstellationType,NoradCatID,ConstellationName
 5,6,41862,Galileo
 5,3,43508,Glonass
 6,6,59600,Galileo
+6,1,39741,GPS
 6,5,36828,BeiDou
 7,6,41859,Galileo
 7,5,37256,BeiDou
@@ -55,6 +56,7 @@ Svid,ConstellationType,NoradCatID,ConstellationName
 23,5,43581,BeiDou
 24,6,40889,Galileo
 24,5,43582,BeiDou
+24,1,38833,GPS
 24,3,45358,Glonass
 25,1,36585,GPS
 25,5,43603,BeiDou
@@ -71,6 +73,7 @@ Svid,ConstellationType,NoradCatID,ConstellationName
 30,6,40890,Galileo
 31,6,43058,Galileo
 32,5,43622,BeiDou
+32,1,41328,GPS
 33,5,43623,BeiDou
 33,6,43565,Galileo
 34,6,49809,Galileo
