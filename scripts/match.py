@@ -26,7 +26,7 @@ def get_satellite_locations(row, omm_files, tles_dir):
     for omm_filename in omm_files:
         omm_file_path = os.path.join(tles_dir, omm_filename)
         with open(omm_file_path, 'r') as omm_file:
-            omm_data = json.load(omm_file)[0]
+            omm_data = json.load(omm_file)
 
         ts = load.timescale()
 
