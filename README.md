@@ -1,46 +1,69 @@
-# GNSS Observations
+# 🛰️ GNSS Observations
 
-Map Satellite ID from Android APIs to NORAD CAT IDs.
+Map GNSS satellite IDs from Android logs to NORAD catalog IDs
+This project links GNSS satellite identifiers reported by Android devices with real-world NORAD catalog IDs using Two-Line Element sets (TLEs). It helps bridge raw GNSS observations with publicly available orbital data—useful for research, geolocation analysis, or satellite tracking.
 
-## Dataset
 
-https://www.kaggle.com/datasets/evgenyarbatov/gnss-satellites/
+## 📊 Dataset
 
-## Running
+Kaggle dataset:
 
-Prereqs: 
+🔗 [GNSS Satellites](https://www.kaggle.com/datasets/evgenyarbatov/gnss-satellites/)
 
-- Account on https://www.space-track.org to get TLEs
-- GNSSLogger app with 'Status' logging enabled
-- Upload GNSSLogger logs to Google Drive
+Sources used:
+
+- [GNSSLogger app](https://play.google.com/store/apps/details?id=com.google.android.apps.location.gps.gnsslogger&hl=en) for raw data
+- [CelesTrak](https://celestrak.org) for GNSS satellite IDs
+- [Space-Track.org](https://www.space-track.org/auth/login) for TLE data
+
+## ⚙️ Getting Started
+
+Prerequisites
+- A free account on Space-Track.org
+- Android device with GNSSLogger installed
+  - Make sure Status logging is enabled
+-  GNSS logs stored on your personal Google Drive
+
+## 🚀 Running the Pipeline
 
 
 ```sh
-# Create venv
+# 1. Set up a virtual environment
 make venv  
 
-# Install deps
+# 2. Install dependencies
 make install  
 
-# Replace with your own credentials
+# 3. Initialize project with your credentials
 make init  
 
-# Get GNSS IDs from https://celestrak.org
+# 4. Download GNSS satellite IDs from CelesTrak
 make ids  
 
-# Filter GNSS IDs to active ones ('active' ie launched in the last 15 years)
+# 5. Filter satellite IDs to active satellites (launched in the last 15 years)
 make active  
 
-# Download TLEs from https://www.space-track.org
+# 6. Download current TLEs from Space-Track
 make tle  
 
-# Fetch GNSSLogger app logs from Google Drive. Replace with your own Google Drive
-make log 
+# 7. Download GNSSLogger logs from your Google Drive
+make log  
 
-# Match each satellite from the logs to the closest satellite in TLE files
+# 8. Match observed GNSS satellites to closest NORAD satellites in TLEs
 make match  
 
-# Upload to Kaggle
+# 9. Upload the matched dataset to Kaggle
 make upload  
 ```
 
+## 📁 Project Structure
+
+```
+GNSS-Observations/
+├── logs/           # GNSSLogger logs from Android devices
+├── tle/            # TLE files from Space-Track
+├── ids/            # Satellite IDs from CelesTrak
+├── scripts/        # Matching and processing logic
+├── Makefile        # Automation for all steps
+└── README.md       
+```
