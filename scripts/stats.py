@@ -27,7 +27,7 @@ def get_satellites_visible_now(timestamp, tles_dir):
         omm_file_path = os.path.join(tles_dir, omm_filename)
         
         with open(omm_file_path, 'r') as omm_file:
-            omm_data = json.load(omm_file)[0]
+            omm_data = json.load(omm_file)
 
         satellite = EarthSatellite.from_omm(ts, omm_data)
         difference = satellite - observer
