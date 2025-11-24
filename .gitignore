@@ -1,3 +1,5 @@
 .DS_Store
 space_track.env
 kaggle.env
+.venv
+__pycache__
