@@ -73,7 +73,6 @@ def predict_location(row, tles_dir):
 def update_verified(df, existing_file):
     try:
         existing_df = pd.read_csv(existing_file, dtype={
-            'ObservationCount': int,
             'TLEDistance': float,
         })
     except FileNotFoundError:
@@ -90,7 +89,6 @@ def update_verified(df, existing_file):
     combined_df = pd.concat([existing_df, new_data])
     
     combined_df = combined_df.groupby(['Svid', 'NoradCatID', 'ConstellationType']).agg({
-        'ObservationCount': 'sum',
         'TLEDistance': 'min'
     }).reset_index()
     
