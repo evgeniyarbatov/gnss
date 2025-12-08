@@ -1,5 +1,7 @@
 .DS_Store
-space_track.env
-kaggle.env
 .venv
-__pycache__
+kaggle.env
+space_track.env
+.ipynb_checkpoints/
+__pycache__/
+.venv/
