@@ -71,4 +71,4 @@ stats:
 .PHONY: init ids active tle log filter match verify upload stats
 
 cleanvenv:
-	@rm -rf .venv
+	@rm -rf $(VENV_PATH)
