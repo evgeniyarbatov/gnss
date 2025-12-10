@@ -69,3 +69,6 @@ stats:
 	$(TLES_DIR)
 
 .PHONY: init ids active tle log filter match verify upload stats
+
+cleanvenv:
+	@rm -rf .venv
