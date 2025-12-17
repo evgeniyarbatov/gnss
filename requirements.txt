@@ -8,4 +8,6 @@ skyfield
 scipy
 kaggle
 fastdtw
-pyarrow
+pyarrow-e 
+black
+flake8
