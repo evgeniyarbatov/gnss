@@ -13,6 +13,7 @@ CACHE_DIR = "cache"
 LAST_CALL_FILE = "last_omm_fetch_time.json"
 ONE_HOUR = 3600
 
+
 def once_per_hour_persistent(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
@@ -31,7 +32,7 @@ def once_per_hour_persistent(func):
         if now - last_call < ONE_HOUR:
             wait_time = int(ONE_HOUR - (now - last_call))
             print(f"Function already called. Try again in {wait_time} seconds.")
-            return None 
+            return None
 
         result = func(*args, **kwargs)
 
@@ -39,7 +40,9 @@ def once_per_hour_persistent(func):
             json.dump({"last_call": now}, f)
 
         return result
+
     return wrapper
+
 
 def disk_cache(func):
     @wraps(func)
@@ -64,6 +67,7 @@ def disk_cache(func):
 
     return wrapper
 
+
 def get_name(satellite_type):
     name_map = {
         1: "navstar",
@@ -73,6 +77,7 @@ def get_name(satellite_type):
         6: "galileo",
     }
     return name_map.get(satellite_type, "unknown")
+
 
 def read_gnss_log(log_file):
     column_names = [
@@ -89,9 +94,9 @@ def read_gnss_log(log_file):
         "UsedInFix",
         "HasAlmanacData",
         "HasEphemerisData",
-        "BasebandCn0DbHz"
+        "BasebandCn0DbHz",
     ]
-    
+
     df = pd.read_csv(
         log_file,
         comment="#",
@@ -101,11 +106,13 @@ def read_gnss_log(log_file):
     )
 
     df = df.dropna(subset=["UnixTimeMillis"])
-    df[['UnixTimeMillis']] = df[['UnixTimeMillis']].apply(pd.to_numeric, errors='coerce')
-    
+    df[["UnixTimeMillis"]] = df[["UnixTimeMillis"]].apply(
+        pd.to_numeric, errors="coerce"
+    )
+
     # Only keep satellites for which the signal is strong enough
-    df = df[df['BasebandCn0DbHz'] > SIGNAL_STRENGTH_CUTOFF]
-    
+    df = df[df["BasebandCn0DbHz"] > SIGNAL_STRENGTH_CUTOFF]
+
     df["ConstellationName"] = df["ConstellationType"].apply(get_name)
-    
+
     return df
