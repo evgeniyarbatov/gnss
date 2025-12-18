@@ -1,7 +1,6 @@
 import sys
 import os
 
-import pandas as pd
 
 from utils import (
     read_gnss_log,
