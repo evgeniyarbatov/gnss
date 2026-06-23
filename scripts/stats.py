@@ -8,8 +8,7 @@ from skyfield.api import EarthSatellite, load, wgs84
 
 import pandas as pd
 
-TIMEZONE = "Asia/Ho_Chi_Minh"
-LAT, LON = 20.99484734661426, 105.86761269335307
+from location import LAT, LON, TIMEZONE
 
 
 def get_satellites_visible_now(timestamp, tles_dir):
