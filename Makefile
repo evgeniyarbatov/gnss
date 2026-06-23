@@ -3,6 +3,13 @@ PYTHON := $(VENV_PATH)/bin/python
 PIP := $(VENV_PATH)/bin/pip
 REQUIREMENTS := requirements.txt
 
+# Hanoi area
+LAT = 20.99484734661426
+LON = 105.86761269335307
+TIMEZONE = Asia/Ho_Chi_Minh
+
+GNSS_ENV = LAT=$(LAT) LON=$(LON) TIMEZONE=$(TIMEZONE)
+
 CONSTELLATIONS_FILE = constellations.json
 
 SPACE_TRACK_GIST_ID = 6a39486eb8aefc2f8db3c07b300481d6
@@ -53,18 +60,25 @@ filter:
 	@$(PYTHON) scripts/filter.py $(LOGS_DIR) $(FILTERED_LOGS_DIR);
 
 match: filter
-	@$(PYTHON) scripts/match.py \
+	@$(GNSS_ENV) $(PYTHON) scripts/match.py \
 	$(ACTIVE_IDS_DIR) \
 	$(TLES_DIR) \
 	$(FILTERED_LOGS_DIR) \
 	$(MATCHES_FILE);
+
+verify: match
+	@$(GNSS_ENV) $(PYTHON) scripts/verify.py \
+	$(FILTERED_LOGS_DIR) \
+	$(TLES_DIR) \
+	$(MATCHES_FILE) \
+	$(VERIFIED_FILE);
 
 upload:
 	source $(VENV_PATH)/bin/activate && \
 	python3 scripts/upload.py $(MATCHES_FILE) $(KAGGLE_FILE);
 
 stats:
-	@$(PYTHON) scripts/stats.py \
+	@$(GNSS_ENV) $(PYTHON) scripts/stats.py \
 	$(KAGGLE_FILE) \
 	$(TLES_DIR)
 

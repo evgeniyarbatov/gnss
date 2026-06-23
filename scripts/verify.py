@@ -11,12 +11,8 @@ from skyfield.api import EarthSatellite, load, wgs84
 from scipy.spatial.distance import euclidean
 from fastdtw import fastdtw
 
-from utils import (
-    read_gnss_log,
-)
-
-TIMEZONE = "Asia/Ho_Chi_Minh"
-LAT, LON = 20.99484734661426, 105.86761269335307
+from location import LAT, LON, TIMEZONE
+from utils import read_gnss_log
 
 OBSERVATION_INTERVAL_SECONDS = 80
 
