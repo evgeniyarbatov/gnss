@@ -73,8 +73,7 @@ verify: match
 	$(VERIFIED_FILE);
 
 upload:
-	source $(VENV_PATH)/bin/activate && \
-	python3 scripts/upload.py $(MATCHES_FILE) $(KAGGLE_FILE);
+	@$(PYTHON) scripts/upload.py $(MATCHES_FILE) $(KAGGLE_FILE);
 
 stats:
 	@$(GNSS_ENV) $(PYTHON) scripts/stats.py \
