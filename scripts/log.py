@@ -1,7 +1,7 @@
 import gdown
 import sys
 
-GOOGLE_DRIVE_ID = "11WMO-rdsKazhKZ1nlzmbigxZuWrzuI_R"
+GOOGLE_DRIVE_ID = "1T_Cbos3dsvlx6DYsh8cFFh7GJYG3G5Qr"
 
 
 def main(logs_dir):

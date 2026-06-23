@@ -28,7 +28,7 @@ python scripts/log.py logs/
 
 | Constant | Value | Purpose |
 |----------|-------|---------|
-| `GOOGLE_DRIVE_ID` | `11WMO-rdsKazhKZ1nlzmbigxZuWrzuI_R` | Source Google Drive folder |
+| `GOOGLE_DRIVE_ID` | `1T_Cbos3dsvlx6DYsh8cFFh7GJYG3G5Qr` | Source Google Drive folder |
 
 ## Outputs
 
