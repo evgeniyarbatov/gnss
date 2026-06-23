@@ -8,7 +8,7 @@ Formats the matched lookup table and publishes a new version to the [Kaggle data
 make upload
 ```
 
-Requires `kaggle.env` credentials (from `make init`) and an existing `logs/matched.csv`.
+Requires the [Kaggle CLI](https://github.com/Kaggle/kaggle-api) installed and authenticated (typically via `~/.kaggle/kaggle.json`), plus an existing `logs/matched.csv`.
 
 ## Usage
 
@@ -29,9 +29,9 @@ python scripts/upload.py logs/matched.csv kaggle/gnss.csv
 | `matches_file` | `logs/matched.csv` | Svid-to-NORAD mapping |
 | `kaggle_file` | `kaggle/gnss.csv` | Local dataset file to upload |
 
-| Credential file | Used for |
-|-----------------|----------|
-| `kaggle.env` | Kaggle API authentication |
+| Tool | Used for |
+|------|----------|
+| `kaggle` CLI | Dataset version upload (`kaggle datasets version`) |
 
 ## Outputs
 
@@ -48,7 +48,7 @@ python scripts/upload.py logs/matched.csv kaggle/gnss.csv
 1. Read `matches_file`.
 2. Convert each row to integers and add a human-readable `ConstellationName` (GPS, Glonass, QZSS, BeiDou, Galileo).
 3. Write the result to `kaggle_file`.
-4. Authenticate with the Kaggle API and publish a new dataset version from the `kaggle/` directory (which includes `dataset-metadata.json`).
+4. Run `kaggle datasets version -p kaggle/ -m "Update"` to publish a new dataset version from the `kaggle/` directory (which includes `dataset-metadata.json`).
 
 ## Constellation name mapping
 
@@ -62,7 +62,8 @@ python scripts/upload.py logs/matched.csv kaggle/gnss.csv
 
 ## Dependencies
 
-- `pandas`, `kaggle`, `python-dotenv`
+- `pandas`
+- `kaggle` CLI (on `PATH`, authenticated separately from the Python `kaggle` package)
 
 ## Notes
 

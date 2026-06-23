@@ -1,14 +1,8 @@
-import sys
 import os
+import subprocess
+import sys
 
 import pandas as pd
-
-from dotenv import load_dotenv
-from kaggle.api.kaggle_api_extended import KaggleApi
-
-TLE_DISTANCE_CUTOFF = 5
-
-load_dotenv("kaggle.env")
 
 
 def get_pretty_name(name):
@@ -43,12 +37,18 @@ def main(matches_file, kaggle_file):
     result_df = pd.DataFrame(result_rows)
     result_df.to_csv(kaggle_file, index=False)
 
-    api = KaggleApi()
-    api.authenticate()
-
-    api.dataset_create_version(
-        os.path.dirname(kaggle_file),
-        "Update",
+    dataset_dir = os.path.dirname(kaggle_file)
+    subprocess.run(
+        [
+            "kaggle",
+            "datasets",
+            "version",
+            "-p",
+            dataset_dir,
+            "-m",
+            "Update",
+        ],
+        check=True,
     )
 
 

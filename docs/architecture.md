@@ -108,7 +108,7 @@ Scripts that use location import from [`location.py`](../scripts/location.py), w
 | File | Source | Used by |
 |------|--------|---------|
 | `space_track.env` | GitHub gist (`make init`) | `tle.py` |
-| `kaggle.env` | GitHub gist (`make init`) | `upload.py` |
+| `~/.kaggle/kaggle.json` | Kaggle account settings | `upload.py` (via Kaggle CLI) |
 
 Both files are fetched via `gh gist view` and are not committed to the repository.
 
