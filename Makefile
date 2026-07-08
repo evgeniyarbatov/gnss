@@ -34,11 +34,10 @@ init:
 	@gh gist view $(KAGGLE_GIST_ID) --raw > kaggle.env
 
 venv:
-	@python3 -m venv $(VENV_PATH)
+	@uv venv $(VENV_PATH)
 
 install: venv
-	@$(PIP) install --disable-pip-version-check -q --upgrade pip
-	@$(PIP) install --disable-pip-version-check -q -r $(REQUIREMENTS)
+	@uv pip install -q -r $(REQUIREMENTS)
 
 ids:
 	@$(PYTHON) scripts/ids.py $(CONSTELLATIONS_FILE) $(IDS_DIR);
