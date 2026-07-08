@@ -39,46 +39,36 @@ venv:
 install: venv
 	@uv pip install -q -r $(REQUIREMENTS)
 
-ids:
+ids: install
 	@$(PYTHON) scripts/ids.py $(CONSTELLATIONS_FILE) $(IDS_DIR);
-
-active:
+active: install
 	@$(PYTHON) scripts/active.py $(IDS_DIR) $(ACTIVE_IDS_DIR);
-
-tle:
+tle: install
 	@$(PYTHON) scripts/tle.py $(ACTIVE_IDS_DIR) $(TLES_DIR);
-
-parquet:
+parquet: install
 	@$(PYTHON) scripts/parquet.py;
-
-log:
+log: install
 	@$(PYTHON) scripts/log.py $(LOGS_DIR);
-
-filter:
+filter: install
 	@$(PYTHON) scripts/filter.py $(LOGS_DIR) $(FILTERED_LOGS_DIR);
-
-match: filter
+match: install filter
 	@$(GNSS_ENV) $(PYTHON) scripts/match.py \
 	$(ACTIVE_IDS_DIR) \
 	$(TLES_DIR) \
 	$(FILTERED_LOGS_DIR) \
 	$(MATCHES_FILE);
-
-verify: match
+verify: install match
 	@$(GNSS_ENV) $(PYTHON) scripts/verify.py \
 	$(FILTERED_LOGS_DIR) \
 	$(TLES_DIR) \
 	$(MATCHES_FILE) \
 	$(VERIFIED_FILE);
-
-upload:
+upload: install
 	@$(PYTHON) scripts/upload.py $(MATCHES_FILE) $(KAGGLE_FILE);
-
-stats:
+stats: install
 	@$(GNSS_ENV) $(PYTHON) scripts/stats.py \
 	$(KAGGLE_FILE) \
 	$(TLES_DIR)
-
 .PHONY: init ids active tle log filter match verify upload stats
 
 cleanvenv:
