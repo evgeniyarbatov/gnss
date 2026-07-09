@@ -1,0 +1,26 @@
+[project]
+name = "gnss"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "pandas",
+    "ipykernel",
+    "requests",
+    "ratelimit",
+    "dotenv",
+    "gdown",
+    "skyfield",
+    "scipy",
+    "kaggle",
+    "fastdtw",
+    "pyarrow",
+]
+
+[dependency-groups]
+dev = [
+    "black",
+    "flake8",
+]
+
+[tool.uv]
+package = false
