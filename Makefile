@@ -75,9 +75,6 @@ stats: install
 
 .PHONY: init ids active tle log filter match verify upload stats lock help
 
-cleanvenv:
-	@rm -rf .venv
-
 lock:
 	uv lock
 
@@ -94,4 +91,3 @@ help:
 	@echo "upload  - upload matches to Kaggle"
 	@echo "stats   - print stats"
 	@echo "lock    - refresh uv.lock"
-	@echo "cleanvenv - remove .venv"
