@@ -104,3 +104,8 @@ Svid,ConstellationType,NoradCatID,ConstellationName
 19,5,43001,BeiDou
 21,1,64202,GPS
 36,5,43706,BeiDou
+1,5,56564,BeiDou
+2,5,45344,BeiDou
+3,5,45807,BeiDou
+4,5,43683,BeiDou
+32,6,67162,Galileo
