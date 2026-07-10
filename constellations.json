@@ -3,5 +3,6 @@
     "beidou",
     "glonass",
     "navstar",
-    "galileo"
+    "galileo",
+    "sbas"
 ]

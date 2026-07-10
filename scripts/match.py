@@ -108,6 +108,11 @@ def main(active_ids_dir, tles_dir, filtered_logs_dir, matches_file):
     df = pd.concat(dfs, ignore_index=True)
     df = df.drop_duplicates(subset=["Svid", "ConstellationName"], keep="first")
 
+    unmatched = df["ConstellationName"] == "unknown"
+    if unmatched.any():
+        print(f"Skipping {unmatched.sum()} rows with unmapped ConstellationType")
+        df = df[~unmatched]
+
     df[["NoradCatID", "PredictedAzimuth", "PredictedElevation"]] = df.apply(
         lambda row: pd.Series(
             get_norad_cat_id(
