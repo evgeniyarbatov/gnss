@@ -48,7 +48,9 @@ New rows are deduplicated against existing entries on `(Svid, NoradCatID, Conste
 
 ## Algorithm
 
-For each unique `(Svid, ConstellationName)` across all filtered logs:
+Rows with an unmapped `ConstellationName` (`unknown`) are skipped, since there is no corresponding NORAD ID list to match against.
+
+For each remaining unique `(Svid, ConstellationName)` across all filtered logs:
 
 1. **Scope candidates** — load NORAD IDs for the observation's constellation from `active_ids_dir`.
 2. **Predict positions** — for each candidate satellite at the observation timestamp:

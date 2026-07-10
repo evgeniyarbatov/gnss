@@ -71,6 +71,7 @@ def disk_cache(func):
 def get_name(satellite_type):
     name_map = {
         1: "navstar",
+        2: "sbas",
         3: "glonass",
         4: "qzs",
         5: "beidou",

@@ -14,6 +14,7 @@ Parses a raw GNSSLogger `.txt` file into a pandas DataFrame.
 
 - Lines starting with `#` are treated as comments and skipped.
 - 14 named columns are assigned (GNSSLogger `Status` row format).
+- Non-`Status` rows (`Raw`, `Agc`, `Fix`, etc.) are dropped by matching the first column, since some record types share `Status`'s field count and would otherwise misalign into these columns.
 - Rows with missing `UnixTimeMillis` are dropped.
 - Rows with `BasebandCn0DbHz ≤ 25` are discarded (weak signal filter).
 - A `ConstellationName` column is added via `get_name()`.
@@ -38,6 +39,7 @@ Maps Android `ConstellationType` integers to short constellation names:
 | Type | Name |
 |------|------|
 | 1 | `navstar` |
+| 2 | `sbas` |
 | 3 | `glonass` |
 | 4 | `qzs` |
 | 5 | `beidou` |

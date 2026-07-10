@@ -9,8 +9,12 @@ def load_satellite_names(filename):
         return json.load(file)
 
 
+GROUP_QUERY_NAMES = {"sbas"}
+
+
 def fetch_satellite_data(name):
-    url = f"https://celestrak.org/NORAD/elements/gp.php?NAME={name}&FORMAT=json-pretty"
+    param = "GROUP" if name in GROUP_QUERY_NAMES else "NAME"
+    url = f"https://celestrak.org/NORAD/elements/gp.php?{param}={name}&FORMAT=json-pretty"
     response = requests.get(url)
     if response.status_code == 200:
         return response.json()
