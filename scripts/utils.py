@@ -105,10 +105,17 @@ def read_gnss_log(log_file):
         low_memory=False,
     )
 
+    # The raw log interleaves other record types (Raw, Agc, Fix, ...) that
+    # can coincidentally have the same field count as Status rows, so they
+    # aren't dropped by on_bad_lines and must be filtered out explicitly.
+    df = df[df["Status"] == "Status"]
+
     df = df.dropna(subset=["UnixTimeMillis"])
     df[["UnixTimeMillis"]] = df[["UnixTimeMillis"]].apply(
         pd.to_numeric, errors="coerce"
     )
+
+    df["BasebandCn0DbHz"] = pd.to_numeric(df["BasebandCn0DbHz"], errors="coerce")
 
     # Only keep satellites for which the signal is strong enough
     df = df[df["BasebandCn0DbHz"] > SIGNAL_STRENGTH_CUTOFF]
