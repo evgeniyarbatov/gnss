@@ -1,17 +1,14 @@
-import sys
 import json
 import os
+import sys
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 import pandas as pd
-
-from zoneinfo import ZoneInfo
-from datetime import datetime
-from skyfield.api import EarthSatellite, load, wgs84
-
-from scipy.spatial.distance import euclidean
 from fastdtw import fastdtw
-
 from location import LAT, LON, TIMEZONE
+from scipy.spatial.distance import euclidean
+from skyfield.api import EarthSatellite, load, wgs84
 from utils import read_gnss_log
 
 OBSERVATION_INTERVAL_SECONDS = 80
@@ -54,7 +51,7 @@ def predict_location(row, tles_dir):
     )
 
     omm_file_path = os.path.join(tles_dir, f"{int(row['NoradCatID'])}.json")
-    with open(omm_file_path, "r") as omm_file:
+    with open(omm_file_path) as omm_file:
         omm_data = json.load(omm_file)[0]
 
     ts = load.timescale()
@@ -139,13 +136,13 @@ def main(logs_dir, tles_dir, matches_file, verified_file):
         measured_series = [
             (round(azimuth), round(elevation))
             for azimuth, elevation in zip(
-                group["AzimuthDegrees"], group["ElevationDegrees"]
+                group["AzimuthDegrees"], group["ElevationDegrees"], strict=False
             )
         ]
         predicted_series = [
             (round(azimuth), round(elevation))
             for azimuth, elevation in zip(
-                group["PredictedAzimuth"], group["PredictedElevation"]
+                group["PredictedAzimuth"], group["PredictedElevation"], strict=False
             )
         ]
 

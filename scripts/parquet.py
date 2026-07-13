@@ -1,5 +1,6 @@
-import os
 import json
+import os
+
 import pandas as pd
 
 # Directory containing the JSON files
@@ -12,7 +13,7 @@ data_list = []
 for filename in os.listdir(tles_dir):
     if filename.endswith(".json"):
         filepath = os.path.join(tles_dir, filename)
-        with open(filepath, "r") as f:
+        with open(filepath) as f:
             data = json.load(f)
             data_list.append(data)
 

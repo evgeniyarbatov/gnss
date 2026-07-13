@@ -1,7 +1,6 @@
+import json
 import os
 import sys
-import json
-
 from datetime import datetime
 
 SATELLITE_YEAR_CUTOFF = 15
@@ -18,7 +17,7 @@ def main(ids_dir, active_ids_dir):
     for ids_file in ids_files:
         active_ids = []
 
-        with open(f"{ids_dir}/{ids_file}", "r", encoding="utf-8") as f:
+        with open(f"{ids_dir}/{ids_file}", encoding="utf-8") as f:
             data = json.load(f)
 
         for satellite in data:

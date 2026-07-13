@@ -1,14 +1,12 @@
-import sys
-import os
 import json
-
-from zoneinfo import ZoneInfo
+import os
+import sys
 from datetime import datetime, timedelta
-from skyfield.api import EarthSatellite, load, wgs84
+from zoneinfo import ZoneInfo
 
 import pandas as pd
-
 from location import LAT, LON, TIMEZONE
+from skyfield.api import EarthSatellite, load, wgs84
 
 
 def get_satellites_visible_now(timestamp, tles_dir):
@@ -23,7 +21,7 @@ def get_satellites_visible_now(timestamp, tles_dir):
         satellite_id = os.path.splitext(omm_filename)[0]
         omm_file_path = os.path.join(tles_dir, omm_filename)
 
-        with open(omm_file_path, "r") as omm_file:
+        with open(omm_file_path) as omm_file:
             omm_data = json.load(omm_file)
 
         satellite = EarthSatellite.from_omm(ts, omm_data)
