@@ -1,6 +1,5 @@
-import sys
 import os
-
+import sys
 
 from utils import (
     read_gnss_log,

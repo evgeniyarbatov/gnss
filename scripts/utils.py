@@ -1,11 +1,10 @@
+import hashlib
+import json
 import os
 import time
-import json
-import hashlib
+from functools import wraps
 
 import pandas as pd
-
-from functools import wraps
 
 SIGNAL_STRENGTH_CUTOFF = 25
 
@@ -20,7 +19,7 @@ def once_per_hour_persistent(func):
         now = time.time()
 
         if os.path.exists(LAST_CALL_FILE):
-            with open(LAST_CALL_FILE, "r") as f:
+            with open(LAST_CALL_FILE) as f:
                 try:
                     data = json.load(f)
                     last_call = data.get("last_call", 0)
@@ -54,7 +53,7 @@ def disk_cache(func):
         cache_file = os.path.join(CACHE_DIR, f"{hash_key}.json")
 
         if os.path.exists(cache_file):
-            with open(cache_file, "r") as f:
+            with open(cache_file) as f:
                 try:
                     return json.load(f)
                 except json.JSONDecodeError:
@@ -112,9 +111,7 @@ def read_gnss_log(log_file):
     df = df[df["Status"] == "Status"]
 
     df = df.dropna(subset=["UnixTimeMillis"])
-    df[["UnixTimeMillis"]] = df[["UnixTimeMillis"]].apply(
-        pd.to_numeric, errors="coerce"
-    )
+    df[["UnixTimeMillis"]] = df[["UnixTimeMillis"]].apply(pd.to_numeric, errors="coerce")
 
     df["BasebandCn0DbHz"] = pd.to_numeric(df["BasebandCn0DbHz"], errors="coerce")
 

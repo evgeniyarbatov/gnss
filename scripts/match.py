@@ -1,15 +1,13 @@
-import sys
-import os
 import json
+import os
+import sys
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 import pandas as pd
-
-from zoneinfo import ZoneInfo
-from datetime import datetime
-from skyfield.api import EarthSatellite, load, wgs84
-from scipy.spatial import cKDTree
-
 from location import LAT, LON, TIMEZONE
+from scipy.spatial import cKDTree
+from skyfield.api import EarthSatellite, load, wgs84
 
 OBSERVATION_DEGREES_DELTA = 1
 
@@ -25,7 +23,7 @@ def get_satellite_locations(row, omm_files, tles_dir):
     dfs = []
     for omm_filename in omm_files:
         omm_file_path = os.path.join(tles_dir, omm_filename)
-        with open(omm_file_path, "r") as omm_file:
+        with open(omm_file_path) as omm_file:
             omm_data = json.load(omm_file)
 
         ts = load.timescale()
@@ -60,9 +58,7 @@ def get_closest_satellite(row, satellite_df):
 
 
 def get_norad_cat_id(row, active_ids_dir, tles_dir):
-    with open(
-        f"{active_ids_dir}/{row['ConstellationName']}.json", "r", encoding="utf-8"
-    ) as f:
+    with open(f"{active_ids_dir}/{row['ConstellationName']}.json", encoding="utf-8") as f:
         satellite_ids = json.load(f)
 
     omm_files = [

@@ -1,11 +1,12 @@
 import json
 import sys
-import requests
 import time
+
+import requests
 
 
 def load_satellite_names(filename):
-    with open(filename, "r") as file:
+    with open(filename) as file:
         return json.load(file)
 
 
@@ -18,9 +19,8 @@ def fetch_satellite_data(name):
     response = requests.get(url)
     if response.status_code == 200:
         return response.json()
-    else:
-        print(f"Failed to fetch data for {name}: {response.status_code}")
-        return None
+    print(f"Failed to fetch data for {name}: {response.status_code}")
+    return None
 
 
 def save_to_file(filename, data):

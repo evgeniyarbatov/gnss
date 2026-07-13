@@ -1,10 +1,10 @@
-import sys
-import os
-import requests
 import json
+import os
+import sys
 
+import requests
 from dotenv import load_dotenv
-from utils import once_per_hour_persistent, disk_cache
+from utils import disk_cache, once_per_hour_persistent
 
 BASE_URL = "https://www.space-track.org/basicspacedata/query/class/gp/decay_date/null-val/epoch/>now-30/object_type/payload/norad_cat_id"
 
@@ -17,7 +17,7 @@ def get_norad_cat_ids(active_ids_dir):
     for filename in os.listdir(active_ids_dir):
         if filename.endswith(".json"):
             file_path = os.path.join(active_ids_dir, filename)
-            with open(file_path, "r", encoding="utf-8") as file:
+            with open(file_path, encoding="utf-8") as file:
                 data = json.load(file)
                 if isinstance(data, list):
                     ids.extend(data)
@@ -61,7 +61,7 @@ def download_gnss_omm(norad_cat_ids, tles_dir):
 
     omms = fetch_omm(norad_cat_ids)
     for omm in omms:
-        save_omm_to_file(f"{tles_dir}/{omm["NORAD_CAT_ID"]}.json", omm)
+        save_omm_to_file(f"{tles_dir}/{omm['NORAD_CAT_ID']}.json", omm)
 
 
 def main(active_ids_dir, tles_dir):
@@ -71,9 +71,9 @@ def main(active_ids_dir, tles_dir):
     omm_files = [f for f in os.listdir(tles_dir) if f.endswith(".json")]
 
     try:
-        assert len(omm_files) == len(
-            norad_cat_ids
-        ), f"expected {len(norad_cat_ids)} omm files, but found {len(omm_files)}"
+        assert len(omm_files) == len(norad_cat_ids), (
+            f"expected {len(norad_cat_ids)} omm files, but found {len(omm_files)}"
+        )
     except AssertionError as e:
         print("Some omm files are missing", e)
 
