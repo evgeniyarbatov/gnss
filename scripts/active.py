@@ -11,7 +11,7 @@ def is_active(year: int) -> bool:
     return current_year - year <= SATELLITE_YEAR_CUTOFF
 
 
-def main(ids_dir, active_ids_dir):
+def main(ids_dir: str, active_ids_dir: str) -> None:
     ids_files = [f for f in os.listdir(ids_dir) if f.endswith(".json")]
 
     for ids_file in ids_files:

@@ -1,14 +1,14 @@
 import sys
 
-import gdown
+from gdown.download_folder import download_folder
 
 GOOGLE_DRIVE_ID = "1T_Cbos3dsvlx6DYsh8cFFh7GJYG3G5Qr"
 
 
-def main(logs_dir):
+def main(logs_dir: str) -> None:
     # Public folders must be fetched without cookies; otherwise Google
     # redirects to ServiceLogin and gdown sees an empty folder.
-    downloaded = gdown.download_folder(
+    downloaded = download_folder(
         id=GOOGLE_DRIVE_ID,
         output=logs_dir,
         use_cookies=False,

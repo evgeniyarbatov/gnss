@@ -2,7 +2,9 @@ import hashlib
 import json
 import os
 import time
+from collections.abc import Callable
 from functools import wraps
+from typing import Any
 
 import pandas as pd
 
@@ -13,9 +15,9 @@ LAST_CALL_FILE = "last_omm_fetch_time.json"
 ONE_HOUR = 3600
 
 
-def once_per_hour_persistent(func):
+def once_per_hour_persistent(func: Callable[..., Any]) -> Callable[..., Any]:
     @wraps(func)
-    def wrapper(*args, **kwargs):
+    def wrapper(*args: Any, **kwargs: Any) -> Any:
         now = time.time()
 
         if os.path.exists(LAST_CALL_FILE):
@@ -43,9 +45,9 @@ def once_per_hour_persistent(func):
     return wrapper
 
 
-def disk_cache(func):
+def disk_cache(func: Callable[..., Any]) -> Callable[..., Any]:
     @wraps(func)
-    def wrapper(*args, **kwargs):
+    def wrapper(*args: Any, **kwargs: Any) -> Any:
         os.makedirs(CACHE_DIR, exist_ok=True)
 
         key = f"{func.__name__}:{args}:{kwargs}"
@@ -67,7 +69,7 @@ def disk_cache(func):
     return wrapper
 
 
-def get_name(satellite_type):
+def get_name(satellite_type: int) -> str:
     name_map = {
         1: "navstar",
         2: "sbas",
@@ -79,7 +81,7 @@ def get_name(satellite_type):
     return name_map.get(satellite_type, "unknown")
 
 
-def read_gnss_log(log_file):
+def read_gnss_log(log_file: str) -> pd.DataFrame:
     column_names = [
         "Status",
         "UnixTimeMillis",

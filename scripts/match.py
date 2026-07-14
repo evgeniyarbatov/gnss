@@ -2,6 +2,7 @@ import json
 import os
 import sys
 from datetime import datetime
+from typing import Any
 from zoneinfo import ZoneInfo
 
 import pandas as pd
@@ -12,7 +13,9 @@ from skyfield.api import EarthSatellite, load, wgs84
 OBSERVATION_DEGREES_DELTA = 1
 
 
-def get_satellite_locations(row, omm_files, tles_dir):
+def get_satellite_locations(
+    row: "pd.Series[Any]", omm_files: list[str], tles_dir: str
+) -> pd.DataFrame:
     observer = wgs84.latlon(LAT, LON)
 
     current_time = datetime.fromtimestamp(
@@ -47,17 +50,18 @@ def get_satellite_locations(row, omm_files, tles_dir):
 
             dfs.append(temp_df)
 
-    df = pd.concat(dfs, ignore_index=True)
-    return df
+    return pd.concat(dfs, ignore_index=True)
 
 
-def get_closest_satellite(row, satellite_df):
+def get_closest_satellite(row: "pd.Series[Any]", satellite_df: pd.DataFrame) -> pd.DataFrame:
     tree = cKDTree(satellite_df[["altitude", "azimuth"]].values)
-    distance, index = tree.query([[row["ElevationDegrees"], row["AzimuthDegrees"]]])
-    return satellite_df.iloc[index]
+    distance, index = tree.query([float(row["ElevationDegrees"]), float(row["AzimuthDegrees"])])
+    return satellite_df.iloc[[int(index)]]
 
 
-def get_norad_cat_id(row, active_ids_dir, tles_dir):
+def get_norad_cat_id(
+    row: "pd.Series[Any]", active_ids_dir: str, tles_dir: str
+) -> tuple[Any, float, float]:
     with open(f"{active_ids_dir}/{row['ConstellationName']}.json", encoding="utf-8") as f:
         satellite_ids = json.load(f)
 
@@ -77,7 +81,7 @@ def get_norad_cat_id(row, active_ids_dir, tles_dir):
     )
 
 
-def update_matches(df, existing_file):
+def update_matches(df: pd.DataFrame, existing_file: str) -> None:
     try:
         existing_df = pd.read_csv(existing_file)
     except FileNotFoundError:
@@ -93,7 +97,7 @@ def update_matches(df, existing_file):
     combined_df.to_csv(existing_file, index=False)
 
 
-def main(active_ids_dir, tles_dir, filtered_logs_dir, matches_file):
+def main(active_ids_dir: str, tles_dir: str, filtered_logs_dir: str, matches_file: str) -> None:
     log_files = [f for f in os.listdir(filtered_logs_dir) if f.endswith(".txt")]
 
     dfs = []

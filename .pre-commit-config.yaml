@@ -18,3 +18,12 @@ repos:
     rev: v1.15.0
     hooks:
       - id: mypy
+        args: [--scripts-are-modules]
+        additional_dependencies:
+          - pandas==3.0.3
+          - pandas-stubs==3.0.3.260530
+          - requests==2.34.2
+          - scipy==1.18.0
+          - scipy-stubs==1.18.0.1
+          - python-dotenv==1.2.2
+          - gdown==6.1.0

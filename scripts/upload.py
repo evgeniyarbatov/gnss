@@ -1,11 +1,12 @@
 import os
+import shutil
 import subprocess
 import sys
 
 import pandas as pd
 
 
-def get_pretty_name(name):
+def get_pretty_name(name: int) -> str:
     name_map = {
         1: "GPS",
         3: "Glonass",
@@ -16,7 +17,7 @@ def get_pretty_name(name):
     return name_map.get(name, "unknown")
 
 
-def main(matches_file, kaggle_file):
+def main(matches_file: str, kaggle_file: str) -> None:
     df = pd.read_csv(matches_file)
 
     result_rows = []
@@ -38,9 +39,12 @@ def main(matches_file, kaggle_file):
     result_df.to_csv(kaggle_file, index=False)
 
     dataset_dir = os.path.dirname(kaggle_file)
-    subprocess.run(
+    kaggle_bin = shutil.which("kaggle")
+    if kaggle_bin is None:
+        raise FileNotFoundError("kaggle executable not found on PATH")
+    subprocess.run(  # noqa: S603 - kaggle_bin resolved via shutil.which, args are static
         [
-            "kaggle",
+            kaggle_bin,
             "datasets",
             "version",
             "-p",

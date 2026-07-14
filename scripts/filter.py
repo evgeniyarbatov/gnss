@@ -1,12 +1,13 @@
 import os
 import sys
 
+import pandas as pd
 from utils import (
     read_gnss_log,
 )
 
 
-def filter_log(log_file):
+def filter_log(log_file: str) -> pd.DataFrame:
     df = read_gnss_log(log_file)
 
     result_df = (
@@ -29,7 +30,7 @@ def filter_log(log_file):
     ]
 
 
-def main(logs_dir, filtered_logs_dir):
+def main(logs_dir: str, filtered_logs_dir: str) -> None:
     log_files = [f for f in os.listdir(logs_dir) if f.endswith(".txt")]
 
     for log_file in log_files:

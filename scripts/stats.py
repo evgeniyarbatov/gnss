@@ -9,7 +9,7 @@ from location import LAT, LON, TIMEZONE
 from skyfield.api import EarthSatellite, load, wgs84
 
 
-def get_satellites_visible_now(timestamp, tles_dir):
+def get_satellites_visible_now(timestamp: datetime, tles_dir: str) -> set[str]:
     visible_satellites = set()
 
     observer = wgs84.latlon(LAT, LON)
@@ -36,7 +36,7 @@ def get_satellites_visible_now(timestamp, tles_dir):
     return visible_satellites
 
 
-def get_visible_over_day(tles_dir, interval_seconds=1800):
+def get_visible_over_day(tles_dir: str, interval_seconds: int = 1800) -> int:
     start_time = datetime.now(ZoneInfo(TIMEZONE))
     end_time = start_time + timedelta(days=1)
 
@@ -51,7 +51,7 @@ def get_visible_over_day(tles_dir, interval_seconds=1800):
     return len(unique_satellites)
 
 
-def main(kaggle_file, tles_dir):
+def main(kaggle_file: str, tles_dir: str) -> None:
     df = pd.read_csv(kaggle_file)
 
     total_count = sum(1 for file in os.listdir(tles_dir) if file.endswith(".json"))
