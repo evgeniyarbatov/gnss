@@ -1,6 +1,7 @@
 import json
 import os
 import sys
+from typing import Any
 
 import requests
 from dotenv import load_dotenv
@@ -12,8 +13,8 @@ session = requests.Session()
 load_dotenv("space_track.env")
 
 
-def get_norad_cat_ids(active_ids_dir):
-    ids = []
+def get_norad_cat_ids(active_ids_dir: str) -> list[Any]:
+    ids: list[Any] = []
     for filename in os.listdir(active_ids_dir):
         if filename.endswith(".json"):
             file_path = os.path.join(active_ids_dir, filename)
@@ -24,7 +25,7 @@ def get_norad_cat_ids(active_ids_dir):
     return ids
 
 
-def authenticate():
+def authenticate() -> None:
     login_url = "https://www.space-track.org/ajaxauth/login"
     credentials = {
         "identity": os.getenv("SPACE_TRACK_USERNAME"),
@@ -37,7 +38,7 @@ def authenticate():
 
 @disk_cache
 @once_per_hour_persistent
-def fetch_omm(norad_cat_ids):
+def fetch_omm(norad_cat_ids: list[Any]) -> Any:
     """
     Fetch the latest omm for a given NORAD CAT ID and apply rate limiting.
     """
@@ -50,13 +51,13 @@ def fetch_omm(norad_cat_ids):
     return response.json()
 
 
-def save_omm_to_file(filename, omm_data):
+def save_omm_to_file(filename: str, omm_data: Any) -> None:
     with open(filename, "w") as file:
         json.dump(omm_data, file, indent=4)
     print(f"Saved omm to {filename}")
 
 
-def download_gnss_omm(norad_cat_ids, tles_dir):
+def download_gnss_omm(norad_cat_ids: list[Any], tles_dir: str) -> None:
     authenticate()
 
     omms = fetch_omm(norad_cat_ids)
@@ -64,7 +65,7 @@ def download_gnss_omm(norad_cat_ids, tles_dir):
         save_omm_to_file(f"{tles_dir}/{omm['NORAD_CAT_ID']}.json", omm)
 
 
-def main(active_ids_dir, tles_dir):
+def main(active_ids_dir: str, tles_dir: str) -> None:
     norad_cat_ids = get_norad_cat_ids(active_ids_dir)
     download_gnss_omm(norad_cat_ids, tles_dir)
 

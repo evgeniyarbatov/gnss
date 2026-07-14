@@ -2,6 +2,7 @@ import json
 import os
 import sys
 from datetime import datetime
+from typing import Any
 from zoneinfo import ZoneInfo
 
 import pandas as pd
@@ -14,15 +15,17 @@ from utils import read_gnss_log
 OBSERVATION_INTERVAL_SECONDS = 80
 
 
-def filter_by_time(group):
+def filter_by_time(group: pd.DataFrame) -> pd.DataFrame:
     group = group.sort_values("datetime")
-    mask = group["datetime"].diff().dt.total_seconds().ge(OBSERVATION_INTERVAL_SECONDS)
+    mask: pd.Series[bool] = (
+        group["datetime"].diff().dt.total_seconds().ge(OBSERVATION_INTERVAL_SECONDS)
+    )
     return group[mask | mask.isna()]
 
 
-def sample_logs(df):
+def sample_logs(df: pd.DataFrame) -> pd.DataFrame:
     df["datetime"] = pd.to_datetime(df["UnixTimeMillis"], unit="ms")
-    df_filtered = df.groupby(
+    return df.groupby(
         [
             "Svid",
             "ConstellationType",
@@ -39,10 +42,8 @@ def sample_logs(df):
         ]
     ].apply(filter_by_time)
 
-    return df_filtered
 
-
-def predict_location(row, tles_dir):
+def predict_location(row: "pd.Series[Any]", tles_dir: str) -> tuple[float, float]:
     observer = wgs84.latlon(LAT, LON)
 
     current_time = datetime.fromtimestamp(
@@ -70,7 +71,7 @@ def predict_location(row, tles_dir):
     )
 
 
-def update_verified(df, existing_file):
+def update_verified(df: pd.DataFrame, existing_file: str) -> None:
     try:
         existing_df = pd.read_csv(
             existing_file,
@@ -102,7 +103,7 @@ def update_verified(df, existing_file):
     combined_df.to_csv(existing_file, index=False)
 
 
-def main(logs_dir, tles_dir, matches_file, verified_file):
+def main(logs_dir: str, tles_dir: str, matches_file: str, verified_file: str) -> None:
     matches_df = pd.read_csv(matches_file)
 
     log_dfs = []
