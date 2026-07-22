@@ -33,6 +33,9 @@ init:
 install:
 	@uv sync --dev
 
+test: install
+	@uv run python -m unittest discover -s tests -p 'test_*.py' -v
+
 ids: install
 	@uv run python scripts/ids.py $(CONSTELLATIONS_FILE) $(IDS_DIR);
 
@@ -73,13 +76,14 @@ stats: install
 	$(KAGGLE_FILE) \
 	$(TLES_DIR)
 
-.PHONY: init ids active tle log filter match verify upload stats lock help
+.PHONY: init test ids active tle log filter match verify upload stats lock help
 
 lock:
 	uv lock
 
 help:
 	@echo "install - uv sync --dev"
+	@echo "test    - run unit tests"
 	@echo "init    - fetch space_track.env / kaggle.env from gh gists"
 	@echo "ids     - resolve constellation ids"
 	@echo "active  - filter to active satellite ids"
