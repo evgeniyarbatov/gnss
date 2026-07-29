@@ -1,5 +1,9 @@
 # Uses uv (https://docs.astral.sh/uv) for dependency management — uv sync creates/updates .venv; run commands via uv run, no manual activation.
 
+DATA_ROOT ?= $(HOME)/data
+REPO_NAME := $(notdir $(CURDIR))
+DATA_DIR  ?= $(DATA_ROOT)/$(REPO_NAME)
+
 LAT = 10.78704710227992
 LON = 106.70711329480078
 TIMEZONE = Asia/Ho_Chi_Minh
@@ -16,11 +20,11 @@ ACTIVE_IDS_DIR = ids/active
 
 TLES_DIR = tles
 
-LOGS_DIR = logs
-FILTERED_LOGS_DIR = logs/filtered
+LOGS_DIR = $(DATA_DIR)/raw
+FILTERED_LOGS_DIR = $(DATA_DIR)/filtered
 
-MATCHES_FILE = logs/matched.csv
-VERIFIED_FILE = logs/verified.csv
+MATCHES_FILE = $(DATA_DIR)/matched.csv
+VERIFIED_FILE = $(DATA_DIR)/verified.csv
 
 KAGGLE_FILE = kaggle/gnss.csv
 
@@ -49,12 +53,15 @@ parquet: install
 	@uv run python scripts/parquet.py;
 
 log: install
+	@mkdir -p $(LOGS_DIR)
 	@uv run python scripts/log.py $(LOGS_DIR);
 
 filter: install
+	@mkdir -p $(FILTERED_LOGS_DIR)
 	@uv run python scripts/filter.py $(LOGS_DIR) $(FILTERED_LOGS_DIR);
 
 match: install filter
+	@mkdir -p $(DATA_DIR)
 	@$(GNSS_ENV) uv run python scripts/match.py \
 	$(ACTIVE_IDS_DIR) \
 	$(TLES_DIR) \
@@ -62,6 +69,7 @@ match: install filter
 	$(MATCHES_FILE);
 
 verify: install match
+	@mkdir -p $(DATA_DIR)
 	@$(GNSS_ENV) uv run python scripts/verify.py \
 	$(FILTERED_LOGS_DIR) \
 	$(TLES_DIR) \

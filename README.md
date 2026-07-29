@@ -56,6 +56,8 @@ make match
 make upload
 ```
 
+Generated logs, matches, and verification output are written outside the repo, under `~/data/gnss/` by default. Override with `make <target> DATA_ROOT=/path/to/shared` (changes the parent) or `make <target> DATA_DIR=/tmp/run-42` (changes the full path).
+
 ## 📁 Project Structure
 
 ```
