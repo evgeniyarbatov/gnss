@@ -103,3 +103,6 @@ help:
 	@echo "upload  - upload matches to Kaggle"
 	@echo "stats   - print stats"
 	@echo "lock    - refresh uv.lock"
+
+# Entry point: full pipeline.
+run: all
