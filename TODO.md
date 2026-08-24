@@ -1,2 +1,5 @@
 - TLE json to parquet file
 - check for interesting correlation from TLEs
+- `pyarrow-e` typo in requirements.txt likely breaks `make parquet` on a fresh install (see ROADMAP.md Technical Debt Backlog)
+- `verify.py` (DTW match verification) exists but has no Makefile target and isn't wired into `make all`, so unverified matches can still get uploaded
+- Relationship to `[private]`: that repo already ships the live-TLE, per-location accuracy prediction this repo's ROADMAP.md describes as future work (Phases 1-4), via a different architecture (DEM/building occlusion, not Svid-NORAD matching). Worth deciding whether this repo's roadmap should defer to `[private]` instead of duplicating it.
