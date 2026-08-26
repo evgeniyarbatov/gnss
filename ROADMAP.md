@@ -6,7 +6,7 @@ This is the decoder-ring underneath a much bigger question: why GPS is good or b
 
 ## What it opens up
 
-Once verified, this becomes a durable, versioned reference dataset — not just for this repo, but for any [private] work downstream. The interesting question stops being "what satellite is Svid 7" and becomes "given this mapping is solid, what else can be derived from raw phone GNSS logs without needing new hardware" (multipath heuristics, constellation diversity scoring, per-location visibility forecasts).
+Once verified, this becomes a durable, versioned reference dataset — not just for this repo, but for any downstream accuracy-prediction work. The interesting question stops being "what satellite is Svid 7" and becomes "given this mapping is solid, what else can be derived from raw phone GNSS logs without needing new hardware" (multipath heuristics, constellation diversity scoring, per-location visibility forecasts).
 
 ## Capability this builds
 
