@@ -2,7 +2,7 @@
 
 ## Why keep going
 
-This is the decoder-ring underneath a much bigger question: why GPS is good or bad on the routes you actually run. `[private]`'s entire accuracy model depends on this Svid → NORAD mapping being trustworthy — right now it isn't yet (hardcoded observer position, unverified matches reaching the published dataset). Fixing this repo is the highest-leverage unlock for the sibling project, not a side quest.
+This is the decoder-ring underneath a much bigger question: why GPS is good or bad on the routes you actually run. A downstream accuracy model depends on this Svid → NORAD mapping being trustworthy — right now it isn't yet (hardcoded observer position, unverified matches reaching the published dataset). Fixing this repo is the highest-leverage unlock for that downstream work, not a side quest.
 
 ## What it opens up
 
@@ -12,7 +12,3 @@ Once verified, this becomes a durable, versioned reference dataset — not just 
 
 Building a shared, versioned lookup table once instead of re-deriving satellite-identity logic in every downstream analysis — the data-engineering discipline of treating reference data as a product, not a one-off script output.
 
-## Connects to
-
-- **[private]** — direct, explicit consumer: its own roadmap names this repo's known matching bugs (azimuth wrap-around, unverified uploads, hardcoded lat/lon) as its Phase 0 blocking work.
-- **[private]** — same underlying satellite-identity question, approached from the device-comparison angle.
