@@ -1,5 +1,7 @@
 # 🛰️ GNSS Observations
 
+[![tests](https://github.com/evgeniyarbatov/gnss/actions/workflows/tests.yml/badge.svg)](https://github.com/evgeniyarbatov/gnss/actions/workflows/tests.yml)
+
 Map GNSS satellite IDs from Android logs to NORAD catalog IDs
 This project links GNSS satellite identifiers reported by Android devices with real-world NORAD catalog IDs using Two-Line Element sets (TLEs). It helps bridge raw GNSS observations with publicly available orbital data—useful for research, geolocation analysis, or satellite tracking.
 
