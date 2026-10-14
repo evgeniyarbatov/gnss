@@ -28,39 +28,41 @@ VERIFIED_FILE = $(DATA_DIR)/verified.csv
 
 KAGGLE_FILE = kaggle/gnss.csv
 
-all: install init ids active tle log filter match verify upload stats
+.DEFAULT_GOAL := help
+
+all: setup init ids active tle log filter match verify upload stats
 
 init:
 	@gh gist view $(SPACE_TRACK_GIST_ID) --raw > space_track.env
 	@gh gist view $(KAGGLE_GIST_ID) --raw > kaggle.env
 
-install:
+setup:
 	@uv sync --dev
 
-test: install
+test: setup
 	@uv run python -m unittest discover -s tests -p 'test_*.py' -v
 
-ids: install
+ids: setup
 	@uv run python scripts/ids.py $(CONSTELLATIONS_FILE) $(IDS_DIR);
 
-active: install
+active: setup
 	@uv run python scripts/active.py $(IDS_DIR) $(ACTIVE_IDS_DIR);
 
-tle: install
+tle: setup
 	@uv run python scripts/tle.py $(ACTIVE_IDS_DIR) $(TLES_DIR);
 
-parquet: install
+parquet: setup
 	@uv run python scripts/parquet.py;
 
-log: install
+log: setup
 	@mkdir -p $(LOGS_DIR)
 	@uv run python scripts/log.py $(LOGS_DIR);
 
-filter: install
+filter: setup
 	@mkdir -p $(FILTERED_LOGS_DIR)
 	@uv run python scripts/filter.py $(LOGS_DIR) $(FILTERED_LOGS_DIR);
 
-match: install filter
+match: setup filter
 	@mkdir -p $(DATA_DIR)
 	@$(GNSS_ENV) uv run python scripts/match.py \
 	$(ACTIVE_IDS_DIR) \
@@ -68,7 +70,7 @@ match: install filter
 	$(FILTERED_LOGS_DIR) \
 	$(MATCHES_FILE);
 
-verify: install match
+verify: setup match
 	@mkdir -p $(DATA_DIR)
 	@$(GNSS_ENV) uv run python scripts/verify.py \
 	$(FILTERED_LOGS_DIR) \
@@ -76,10 +78,10 @@ verify: install match
 	$(MATCHES_FILE) \
 	$(VERIFIED_FILE);
 
-upload: install
+upload: setup
 	@uv run python scripts/upload.py $(MATCHES_FILE) $(KAGGLE_FILE);
 
-stats: install
+stats: setup
 	@$(GNSS_ENV) uv run python scripts/stats.py \
 	$(KAGGLE_FILE) \
 	$(TLES_DIR)
@@ -90,7 +92,8 @@ lock:
 	uv lock
 
 help:
-	@echo "install - uv sync --dev"
+	@echo "run     - full pipeline"
+	@echo "setup   - uv sync --dev"
 	@echo "test    - run unit tests"
 	@echo "init    - fetch space_track.env / kaggle.env from gh gists"
 	@echo "ids     - resolve constellation ids"

@@ -31,10 +31,10 @@ Prerequisites
 
 ```sh
 # 1. Set up a virtual environment
-make venv
+make setup
 
 # 2. Install dependencies
-make install
+make setup
 
 # 3. Initialize project with your credentials
 make init
