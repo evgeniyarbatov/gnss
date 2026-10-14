@@ -30,31 +30,28 @@ Prerequisites
 
 
 ```sh
-# 1. Set up a virtual environment
+# 1. Set up the virtual environment and install dependencies
 make setup
 
-# 2. Install dependencies
-make setup
-
-# 3. Initialize project with your credentials
+# 2. Initialize project with your credentials
 make init
 
-# 4. Download GNSS satellite IDs from CelesTrak
+# 3. Download GNSS satellite IDs from CelesTrak
 make ids
 
-# 5. Filter satellite IDs to active satellites (launched in the last 15 years)
+# 4. Filter satellite IDs to active satellites (launched in the last 15 years)
 make active
 
-# 6. Download current TLEs from Space-Track
+# 5. Download current TLEs from Space-Track
 make tle
 
-# 7. Download GNSSLogger logs from your Google Drive
+# 6. Download GNSSLogger logs from your Google Drive
 make log
 
-# 8. Match observed GNSS satellites to closest NORAD satellites in TLEs
+# 7. Match observed GNSS satellites to closest NORAD satellites in TLEs
 make match
 
-# 9. Upload the matched dataset to Kaggle
+# 8. Upload the matched dataset to Kaggle
 make upload
 ```
 
